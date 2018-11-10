@@ -1,6 +1,6 @@
 //**********************    Constantes    ****************************
 const commando = require("discord.js-commando");
-const botconfig = require("../../botconfig.json");
+const botconfig = require("../../clefs.json");
 const r2 = require('r2');
 //**********************       class      ****************************
 class LolSkinCommand extends commando.Command{

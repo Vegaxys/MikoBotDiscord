@@ -1,5 +1,5 @@
 const Commando = require('discord.js-commando');
-const botconfig = require("./botconfig.json");
+const botconfig = require("./clefs.json");
 global.bot = new Commando.Client({
     commandPrefix: 'v!',
     owner: '200366887031406592',
