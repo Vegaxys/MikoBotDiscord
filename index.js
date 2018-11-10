@@ -3,8 +3,7 @@ const Commando = require('discord.js-commando');
 global.bot = new Commando.Client({
     commandPrefix: 'v!',
     owner: '200366887031406592',
-    disableEveryone: true
-});
+    disableEveryone: true });
 global.configbot = require('./botconfig.json');
 global.botconfig = {
     catAPI: process.env.catAPI,
@@ -12,7 +11,6 @@ global.botconfig = {
     weatherAPI: process.env.weatherAPI,
     token: process.env.token
   };
-
 bot.registry
     .registerDefaultTypes()
     .registerGroups([
@@ -24,15 +22,16 @@ bot.registry
     .registerDefaultGroups()
     .registerCommandsIn(__dirname + '/commands');
 
-
-bot.on('message', function(message){
-    if(message.content == 'Hello'){
-        message.reply('Hello');
-    }
-});
+// bot.on('message', function(message){
+//     if(message.content == 'Hello'){
+//         message.reply('Hello');
+//     }
+// });
 bot.on("ready", () => {
     console.log(`${bot.user.username} is online!`);
     bot.user.setActivity("Osu", {type : 'PLAYING'});
   });
+
+bot.on('error', console.error);
 
 bot.login(botconfig.token);
