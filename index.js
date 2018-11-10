@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({path: 'H:/OneDrive - e-artsup/MikoBotDiscord/Clefs/.env'});
 const Commando = require('discord.js-commando');
 const aws = require('aws-sdk');
 global.bot = new Commando.Client({
