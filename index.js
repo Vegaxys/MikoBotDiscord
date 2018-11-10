@@ -1,3 +1,4 @@
+require('dotenv').config();
 const Commando = require('discord.js-commando');
 const aws = require('aws-sdk');
 global.bot = new Commando.Client({
@@ -6,12 +7,12 @@ global.bot = new Commando.Client({
     disableEveryone: true
 });
 global.configbot = require('./botconfig.json');
-global.botconfig = new aws.S3({
+global.botconfig = {
     catAPI: process.env.catAPI,
     dogAPI: process.env.dogAPI,
     weatherAPI: process.env.weatherAPI,
     token: process.env.token
-  });
+  };
 
 bot.registry
     .registerDefaultTypes()

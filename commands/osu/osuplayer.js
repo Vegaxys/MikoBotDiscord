@@ -16,15 +16,17 @@ class OsuPlayerCommand extends commando.Command{
   async run(message, args){
     //v!osuplayer [mode] [player]
 
-    var argsArray = args.split(' ');
-    argsArray.splice(0, 1);
-    var arg1 = argsArray.join(" ");
+    args = args.split(' ');
+    var arg01 = args[0];
+    args.splice(0, 1);
+    var arg02 = args.join(" ");
 
-    let playerName = arg1;
-    let mode = argsArray[0];
+    let mode = arg01;
     let colors = ["red", "orange", "yellow", "green", "blue", "purple",
     "pink", "black"]
     let randomColor = Math.floor(Math.random() * colors.length);
+
+    console.log(mode);
 
     if(mode === "normal")
         mode = 0;
@@ -35,7 +37,7 @@ class OsuPlayerCommand extends commando.Command{
     if(mode === "mania")
         mode = 3;
 
-    var encodedPseudo = encodeURIComponent(playerName);
+    var encodedPseudo = encodeURIComponent(arg02);
 
     var query_params = {
         'colour':colors[randomColor],
@@ -53,7 +55,7 @@ class OsuPlayerCommand extends commando.Command{
 
     var playerEmbed = new Discord.RichEmbed()
         .setAuthor(`Miko | 巫女`, bot.user.avatarURL)
-        .setTitle(`Profil de  ${playerName}`)
+        .setTitle(`Profil de  ${arg02}`)
         .setThumbnail(`https://ignitegame.000webhostapp.com/Miko/osu/osu.png`)
         .setColor("#2e7d32")
         .setImage(`https://lemmmy.pw/osusig/sig.php?${queryString}`)
