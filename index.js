@@ -1,6 +1,5 @@
 require('dotenv').config({path: 'H:/OneDrive - e-artsup/MikoBotDiscord/Clefs/.env'});
 const Commando = require('discord.js-commando');
-const aws = require('aws-sdk');
 global.bot = new Commando.Client({
     commandPrefix: 'v!',
     owner: '200366887031406592',
@@ -20,7 +19,6 @@ bot.registry
         ['simple', 'Simple'],
         ['lol', 'League of Legends'],
         ['moderation', 'Moderation'],
-        ['music', 'Music'],
         ['osu', 'Osu'],
         ['weather', 'Weather']])
     .registerDefaultGroups()
