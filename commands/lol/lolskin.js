@@ -1,7 +1,5 @@
 //**********************    Constantes    ****************************
 const commando = require("discord.js-commando");
-const botconfig = require("../../clefs.json");
-const r2 = require('r2');
 //**********************       class      ****************************
 class LolSkinCommand extends commando.Command{
   constructor(client){
@@ -18,7 +16,7 @@ class LolSkinCommand extends commando.Command{
 
     var champion = encodeURIComponent(args[0]);
 
-    var url = `http://ddragon.leagueoflegends.com/cdn/${botconfig.ddragon}/data/fr_FR/champion/${champion}.json`;
+    var url = `http://ddragon.leagueoflegends.com/cdn/${configbot.ddragon}/data/fr_FR/champion/${champion}.json`;
     var perso = await loadPlayer();
     console.log(perso.data[`${champion}`]);
     perso = perso.data[`${champion}`];

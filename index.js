@@ -1,11 +1,17 @@
 const Commando = require('discord.js-commando');
-const botconfig = require("./clefs.json");
+const aws = require('aws-sdk');
 global.bot = new Commando.Client({
     commandPrefix: 'v!',
     owner: '200366887031406592',
     disableEveryone: true
 });
-const clientID = '508948603914420224';
+global.configbot = require('botconfig.json');
+global.botconfig = new aws.S3({
+    catAPI: process.env.catAPI,
+    dogAPI: process.env.dogAPI,
+    weatherAPI: process.env.weatherAPI,
+    token: process.env.token
+  });
 
 bot.registry
     .registerDefaultTypes()
@@ -27,7 +33,7 @@ bot.on('message', function(message){
 });
 bot.on("ready", () => {
     console.log(`${bot.user.username} is online!`);
-    bot.user.setActivity("Justin Bieber", {type : 'LISTENING'});
+    bot.user.setActivity("Osu", {type : 'PLAYING'});
   });
 
 bot.login(botconfig.token);

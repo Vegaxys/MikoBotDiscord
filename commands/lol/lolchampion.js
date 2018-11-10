@@ -1,8 +1,6 @@
 //**********************    Constantes    ****************************
 const commando = require("discord.js-commando");
-const botconfig = require("../../clefs.json");
 const Discord = require('discord.js');
-const r2 = require('r2');
 //**********************       class      ****************************
 class LolChampionCommand extends commando.Command{
   constructor(client){
@@ -18,8 +16,8 @@ class LolChampionCommand extends commando.Command{
     //v!lolchampion [champion]
     var champion = encodeURIComponent(args);
 
-    var url = `http://ddragon.leagueoflegends.com/cdn/${botconfig.ddragon}/data/fr_FR/champion/${champion}.json`;
-    var iconURL = `http://ddragon.leagueoflegends.com/cdn/${botconfig.ddragon}/img/champion/${champion}.png`;
+    var url = `http://ddragon.leagueoflegends.com/cdn/${configbot.ddragon}/data/fr_FR/champion/${champion}.json`;
+    var iconURL = `http://ddragon.leagueoflegends.com/cdn/${configbot.ddragon}/img/champion/${champion}.png`;
     var splashURL = `http://ddragon.leagueoflegends.com/cdn/img/champion/splash/${champion}_0.jpg`;
     var loreURL = `https://universe.leagueoflegends.com/fr_FR/story/champion/${champion}/`
     console.log(args);

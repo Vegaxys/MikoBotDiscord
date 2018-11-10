@@ -1,8 +1,6 @@
 //**********************    Constantes    ****************************
 const commando = require("discord.js-commando");
-const botconfig = require("../../clefs.json");
 const Discord = require('discord.js');
-const r2 = require('r2');
 //**********************       class      ****************************
 class LolPlayerCommand extends commando.Command{
   constructor(client){
@@ -25,7 +23,7 @@ class LolPlayerCommand extends commando.Command{
     var encodedPseudo = encodeURIComponent(playerName);
     var url = 'https://euw1.api.riotgames.com/lol/summoner/v3/summoners/by-name/' + encodedPseudo + '?api_key=' + botconfig.riotAPI;
     var player = await (await fetch(url)).json();
-    var image = `http://ddragon.leagueoflegends.com/cdn/${botconfig.ddragon}/img/profileicon/` + player.profileIconId + ".png";
+    var image = `http://ddragon.leagueoflegends.com/cdn/${configbot.ddragon}/img/profileicon/` + player.profileIconId + ".png";
   
     var playerEmbed = new Discord.RichEmbed()
       .setAuthor(`Miko | 巫女`, bot.user.avatarURL)

@@ -9,6 +9,7 @@
   "author": "Vegaxys",
   "license": "ISC",
   "dependencies": {
+    "aws-sdk": "^2.353.0",
     "discord.js": "^11.4.2",
     "discord.js-commando": "^0.10.0",
     "ffmpeg": "0.0.4",

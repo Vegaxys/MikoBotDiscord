@@ -1,9 +1,7 @@
 //**********************    Constantes    ****************************
 const commando = require("discord.js-commando");
 const Discord = require('discord.js');
-const botconfig = require("../../clefs.json");
 const querystring = require('querystring');
-const r2 = require('r2');
 const DOG_API_URL   = "https://api.thedogapi.com/";
 //**********************       class      ****************************
 class WoofCommand extends commando.Command{
