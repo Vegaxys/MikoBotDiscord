@@ -1,0 +1,19 @@
+{
+  "name": "mikobot",
+  "version": "1.0.0",
+  "description": "bot for discords servers",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Vegaxys",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^11.4.2",
+    "discord.js-commando": "^0.10.0",
+    "ffmpeg": "0.0.4",
+    "ms": "^2.1.1",
+    "nodemon": "^1.18.6",
+    "r2": "^2.0.1"
+  }
+}
