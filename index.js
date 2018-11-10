@@ -5,7 +5,7 @@ global.bot = new Commando.Client({
     owner: '200366887031406592',
     disableEveryone: true
 });
-global.configbot = require('botconfig.json');
+global.configbot = require('./botconfig.json');
 global.botconfig = new aws.S3({
     catAPI: process.env.catAPI,
     dogAPI: process.env.dogAPI,
