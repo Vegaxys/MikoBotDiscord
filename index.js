@@ -1,5 +1,7 @@
 require('dotenv').config({path: 'H:/OneDrive - e-artsup/MikoBotDiscord/Clefs/.env'});
 const Commando = require('discord.js-commando');
+const express = require('express');
+const app = express();
 global.bot = new Commando.Client({
     commandPrefix: 'v!',
     owner: '200366887031406592',
@@ -31,6 +33,12 @@ bot.on("ready", () => {
     console.log(`${bot.user.username} is online!`);
     bot.user.setActivity("Osu", {type : 'PLAYING'});
   });
+
+app.get("/", (request, response) => {
+    console.log(Date.now() + " Ping Received");
+    response.sendStatus(200);
+  });
+app.listen(process.env.PORT);
 
 bot.on('error', console.error);
 
