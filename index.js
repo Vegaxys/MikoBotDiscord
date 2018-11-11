@@ -2,17 +2,19 @@ require('dotenv').config({path: 'H:/OneDrive - e-artsup/MikoBotDiscord/Clefs/.en
 const Commando = require('discord.js-commando');
 const express = require('express');
 const app = express();
-global.bot = new Commando.Client({
-    commandPrefix: 'v!',
-    owner: '200366887031406592',
-    disableEveryone: true });
 global.configbot = require('./botconfig.json');
 global.botconfig = {
+    commandPrefix: process.env.commandPrefix,   //WARNING
     catAPI: process.env.catAPI,
     dogAPI: process.env.dogAPI,
     weatherAPI: process.env.weatherAPI,
-    token: process.env.token
+    token: process.env.token,                   //WARNING
+    osuAPI: process.env.osuAPI
   };
+global.bot = new Commando.Client({
+commandPrefix: botconfig.commandPrefix,
+owner: '200366887031406592',
+disableEveryone: true });
 bot.registry
     .registerDefaultTypes()
     .registerGroups([
@@ -24,11 +26,6 @@ bot.registry
     .registerDefaultGroups()
     .registerCommandsIn(__dirname + '/commands');
 
-// bot.on('message', function(message){
-//     if(message.content == 'Hello'){
-//         message.reply('Hello');
-//     }
-// });
 bot.on("ready", () => {
     console.log(`${bot.user.username} is online!`);
     bot.user.setActivity("Osu", {type : 'PLAYING'});

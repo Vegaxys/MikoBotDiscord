@@ -7,7 +7,7 @@ class OsuPlayerCommand extends commando.Command{
   constructor(client){
     super(client,{
       name: 'osuplayer',
-      group: 'simple',
+      group: 'osu',
       memberName: 'osuplayer',
       description: 'display the osu profile of a player'
     });
@@ -26,8 +26,6 @@ class OsuPlayerCommand extends commando.Command{
     "pink", "black"]
     let randomColor = Math.floor(Math.random() * colors.length);
 
-    console.log(mode);
-
     if(mode === "normal")
         mode = 0;
     if(mode === "taiko")
@@ -38,6 +36,8 @@ class OsuPlayerCommand extends commando.Command{
         mode = 3;
 
     var encodedPseudo = encodeURIComponent(arg02);
+
+    //****************************************************** get l'image */
 
     var query_params = {
         'colour':colors[randomColor],
@@ -53,11 +53,26 @@ class OsuPlayerCommand extends commando.Command{
     }
     let queryString = querystring.stringify(query_params);
 
+    //****************************************************** get les donnés */
+    var query_player = {
+        'u':encodedPseudo,
+        'k':botconfig.osuAPI,
+        'm': mode
+    }
+    let playerString = querystring.stringify(query_player);
+    var url = `https://osu.ppy.sh/api/get_user?${playerString}`;
+    var player = await (await fetch(url)).json();
+    var playerPage = `https://osu.ppy.sh/users/${player[0].user_id}`;
+
     var playerEmbed = new Discord.RichEmbed()
         .setAuthor(`Miko | 巫女`, bot.user.avatarURL)
-        .setTitle(`Profil de  ${arg02}`)
         .setThumbnail(`https://ignitegame.000webhostapp.com/Miko/osu/osu.png`)
         .setColor("#2e7d32")
+        .addField(`Profil de  ${arg02}`, `
+            Ici depuis ${player[0].join_date}
+            Score total : ${player[0].total_score.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1, ')}
+            Score Ranked : ${player[0].ranked_score.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1, ')}
+            [see more](${playerPage}) `)
         .setImage(`https://lemmmy.pw/osusig/sig.php?${queryString}`)
         .setFooter("Powered by lemmmy.pw");
 
