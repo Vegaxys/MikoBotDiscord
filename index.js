@@ -32,7 +32,7 @@ bot.registry
 
 bot.on("ready", () => {
     console.log(`${bot.user.username} is online!`);
-    bot.user.setActivity("Osu", {type : 'PLAYING'});
+    bot.user.setActivity("Portal 3", {type : 'PLAYING'});
   });
 
 app.get("/", (request, response) => {
