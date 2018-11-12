@@ -58,7 +58,7 @@ class SteamGameCommand extends commando.Command{
     }
     //**********************
     var gameEmbed = new Discord.RichEmbed()
-      .setAuthor(`Miko | 巫女`, bot.author.avatarURL)
+      .setAuthor(`Miko | 巫女`, bot.user.avatarURL)
       .setThumbnail(`${botconfig.resources}/steam/Steam.png`)
       .setColor("#2e7d32")
       .addField(`DÉVELOPPEUR:`, `${statGame[appID].data.developers}`, true)
