@@ -22,6 +22,8 @@ class LolPlayerCommand extends commando.Command{
   
     var encodedPseudo = encodeURIComponent(playerName);
     var url = 'https://euw1.api.riotgames.com/lol/summoner/v3/summoners/by-name/' + encodedPseudo + '?api_key=' + botconfig.riotAPI;
+    console.log(url);
+    
     var player = await (await fetch(url)).json();
     var image = `http://ddragon.leagueoflegends.com/cdn/${configbot.ddragon}/img/profileicon/` + player.profileIconId + ".png";
   

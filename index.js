@@ -1,16 +1,18 @@
-require('dotenv').config({path: 'H:/OneDrive - e-artsup/MikoBotDiscord/Clefs/.env'});
+require('dotenv').config({path: 'C:/Users/Vegaxys/Documents/GitHub/MikoBotDiscord/Clefs/.env'}); //H:/OneDrive - e-artsup/MikoBotDiscord/Clefs/.env
 const Commando = require('discord.js-commando');
 const express = require('express');
 const app = express();
 global.configbot = require('./botconfig.json');
 global.botconfig = {
-    commandPrefix: process.env.commandPrefix,   //WARNING
+    commandPrefix: process.env.commandPrefix1,   //WARNING
     catAPI: process.env.catAPI,
     dogAPI: process.env.dogAPI,
     weatherAPI: process.env.weatherAPI,
-    token: process.env.token,                   //WARNING
-    osuAPI: process.env.osuAPI
+    token: process.env.token1,                   //WARNING
+    osuAPI: process.env.osuAPI,
+    riotAPI: process.env.riotAPI
   };
+  
 global.bot = new Commando.Client({
 commandPrefix: botconfig.commandPrefix,
 owner: '200366887031406592',
@@ -21,6 +23,7 @@ bot.registry
         ['simple', 'Simple'],
         ['lol', 'League of Legends'],
         ['moderation', 'Moderation'],
+        ['steam', 'Steam'],
         ['osu', 'Osu'],
         ['weather', 'Weather']])
     .registerDefaultGroups()

@@ -18,11 +18,10 @@ class HelloCommand extends commando.Command{
       "Bien le bonjour à toi jeune voyageur",
       "Bonjour",
       "Salutation!",
-      "Tu as le bonjour de la princesse Miko, soit en reconnaissant",
-      "Bonjour, belle journée n'est ce pas ?",
+      "Tu as le bonjour de la princesse Miko, sois en reconnaissant",
+      "Bonjour, belle journée n'est-ce pas ?",
       "Bonsoir"];
     let result = Math.floor(Math.random() * reponses.length);
-    console.log('yo');
     return message.channel.send(reponses[result]);
   }
 }
