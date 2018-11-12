@@ -66,7 +66,7 @@ class OsuPlayerCommand extends commando.Command{
 
     var playerEmbed = new Discord.RichEmbed()
         .setAuthor(`Miko | 巫女`, bot.user.avatarURL)
-        .setThumbnail(`https://ignitegame.000webhostapp.com/Miko/osu/osu.png`)
+        .setThumbnail(`${botconfig.resources}/osu/osu.png`)
         .setColor("#2e7d32")
         .addField(`Profil de  ${arg02}`, `
             Ici depuis ${player[0].join_date}

@@ -1,18 +1,19 @@
-require('dotenv').config({path: 'C:/Users/Vegaxys/Documents/GitHub/MikoBotDiscord/Clefs/.env'}); //H:/OneDrive - e-artsup/MikoBotDiscord/Clefs/.env
+require('dotenv').config({path: 'C:./Clefs/.env'}); //H:/OneDrive - e-artsup/MikoBotDiscord/Clefs/.env
 const Commando = require('discord.js-commando');
 const express = require('express');
 const app = express();
 global.configbot = require('./botconfig.json');
+global.gameList = require('./gameList.json');
 global.botconfig = {
-    commandPrefix: process.env.commandPrefix1,   //WARNING
+    commandPrefix: process.env.commandPrefix,   //WARNING
     catAPI: process.env.catAPI,
     dogAPI: process.env.dogAPI,
     weatherAPI: process.env.weatherAPI,
-    token: process.env.token1,                   //WARNING
+    token: process.env.token,                   //WARNING
     osuAPI: process.env.osuAPI,
-    riotAPI: process.env.riotAPI
+    riotAPI: process.env.riotAPI,
+    resources: process.env.resources
   };
-  
 global.bot = new Commando.Client({
 commandPrefix: botconfig.commandPrefix,
 owner: '200366887031406592',

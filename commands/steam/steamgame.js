@@ -15,42 +15,60 @@ class SteamGameCommand extends commando.Command{
   async run(message, args){
     //v!steamgame [gameName]
     var listURL = 'http://api.steampowered.com/ISteamApps/GetAppList/v2';
-    var gameList = await (await fetch(listURL)).json();
 
-    args = args.split(' ');
-    var arg01 = args[0];
-    args.splice(0, 1);
-    var arg02 = args.join(" ");
-
+    if(gameList == '[object Object]'){
+      gameList = await (await fetch(listURL)).json();
+    }
+    //**********************
     var max = gameList.applist.apps.length;
     var name = "undefined";
     var appID = 0;
     var i;
-    console.log(max + " " + arg01);
+    //**********************
     for (i = 0; i < max; i++) { 
-        if(gameList.applist.apps[i].name === arg01){
+        if(gameList.applist.apps[i].name === args){
           name = gameList.applist.apps[i].name;
           appID = gameList.applist.apps[i].appid;
-          console.log(name);
           break;
         }
     }
+    //**********************
     if(name === "undefined"){
-      return message.channel.send("Désolé voyageur, mais je n'ai pas trouvé ce jeu, peut être l'a tu mal écrit.")
+      return message.channel.send("Désolé voyageur, mais je n'ai pas trouvé ce jeu, peut être l'a tu mal écrit (Pense aux majuscules).")
     }
     var statURL = `https://store.steampowered.com/api/appdetails?appids=${appID}&cc=fr`;
     var statGame = await (await fetch(statURL)).json();
- //   var data = statGame.${appID}.data;
+    var splashURL = statGame[appID].data.header_image;
+    //**********************
+    var description = statGame[appID].data.short_description;
+    var text = description.replace(/&quot;/g, '\\"');
+    //**********************
+    var prix = 0;
+    if(statGame[appID].data.is_free == true){
+      prix = 'free';
+    }else{
+      statGame[appID].data.price_overview.final / 100;
+    }
+    //**********************
+    var meracritique = 0;
+    if(statGame[appID].data.hasOwnProperty('metacritic')){
+      meracritique = statGame[appID].data.metacritic.score;
+    }else{
+      meracritique = 'null';
+    }
+    //**********************
     var gameEmbed = new Discord.RichEmbed()
-      .setAuthor(`Miko | 巫女`, message.author.avatarURL)
-      .setTitle(`Page de ${perso.name}, ${perso.title}`)
-      .setThumbnail(iconURL)
+      .setAuthor(`Miko | 巫女`, bot.author.avatarURL)
+      .setThumbnail(`${botconfig.resources}/steam/Steam.png`)
       .setColor("#2e7d32")
-      .setURL("https://universe.leagueoflegends.com/fr_FR/")
-      .addField(`Description`, `${perso.blurb} [see more](${loreURL}) `)
+      .addField(`DÉVELOPPEUR:`, `${statGame[appID].data.developers}`, true)
+      .addField(`PRIX:`, `${prix}`, true)
+      .addField(`DATE DE SORTIE:`, `${statGame[appID].data.release_date.date}`, true)
+      .addField(`METACRITIQUE:`, `${meracritique}`, true)
+      .addField(`Page de ${statGame[appID].data.name}`, `${text} [see more](${statGame[appID].data.website})`)
       .setImage(splashURL);
 
-    message.channel.send(gameEmbed);
+    return message.channel.send(gameEmbed);
   }
 }
 module.exports = SteamGameCommand;
