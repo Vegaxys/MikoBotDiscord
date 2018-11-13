@@ -12,6 +12,7 @@ global.botconfig = {
     token: process.env.token1,                   //WARNING
     osuAPI: process.env.osuAPI,
     riotAPI: process.env.riotAPI,
+    steamAPI: process.env.steamAPI,
     resources: process.env.resources
   };
 global.bot = new Commando.Client({
