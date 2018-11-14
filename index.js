@@ -5,11 +5,11 @@ const app = express();
 global.configbot = require('./botconfig.json');
 global.gameList = require('./gameList.json');
 global.botconfig = {
-    commandPrefix: process.env.commandPrefix,   //WARNING
+    commandPrefix: process.env.commandPrefix1,   //WARNING
     catAPI: process.env.catAPI,
     dogAPI: process.env.dogAPI,
     weatherAPI: process.env.weatherAPI,
-    token: process.env.token,                   //WARNING
+    token: process.env.token1,                   //WARNING
     osuAPI: process.env.osuAPI,
     riotAPI: process.env.riotAPI,
     steamAPI: process.env.steamAPI,

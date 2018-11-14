@@ -1,6 +1,5 @@
 //**********************    Constantes    ****************************
 const commando = require("discord.js-commando");
-var { graphql } = require('graphql');
 const Discord = require('discord.js');
 //**********************       class      ****************************
 class LusciousCommand extends commando.Command{
