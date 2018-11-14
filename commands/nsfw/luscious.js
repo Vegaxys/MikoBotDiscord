@@ -35,7 +35,7 @@ class LusciousCommand extends commando.Command{
   .setAuthor(`Miko | 巫女`, bot.user.avatarURL)
   .setColor("#2e7d32")
   .addField(`${title}`, `:fire: c'eest très hot par ici :fire:`)
-  .setImage(image);
+  .setImage(image)
   .setFooter("Powered by members.luscious.net");
   message.channel.send(nudePicture);
   
