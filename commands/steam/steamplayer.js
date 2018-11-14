@@ -27,45 +27,21 @@ class SteamPlayerCommand extends commando.Command{
     var player = userJSON.response.players[0];
     //**********************
     var playerStatURL = `http://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v0001/?key=${botconfig.steamAPI}&steamid=${user_ID}&format=json`;
-    var userJSON = await (await fetch(userURL)).json();
-    //finir li'integration de la commande.
-
-
+    var userJSON = await (await fetch(playerStatURL)).json();
+    //**********************
+    var timeCreated = new Date(1000*player.timecreated);
+    timeCreated.toLocaleString();
+    var newDate = timeCreated;
+    //**********************
     var playerEmbed = new Discord.RichEmbed()
       .setAuthor(`Miko | 巫女`, bot.user.avatarURL)
       .setTitle(`Profil de  ${player.personaname}`)
       .setThumbnail(player.avatarmedium)
       .setColor("#2e7d32")
-      .addField(`Date de création`, `${player.timecreated.toUTCString()}`, true)
+      .addField(`Date de création`, `${newDate}`, true)
       .addField(`Nationalité`, `${player.loccountrycode}`)
-      .addField(`Date de création`, `${player.timecreated.toUTCString()}`, true)
       ;
     message.channel.send(playerEmbed);
-    //**********************
-
-    //**********************
-
-    //**********************
-
-    //**********************
-
-    //**********************
-
-    //**********************
-
-    //**********************
-    // var gameEmbed = new Discord.RichEmbed()
-    //   .setAuthor(`Miko | 巫女`, bot.user.avatarURL)
-    //   .setThumbnail(`${botconfig.resources}/steam/Steam.png`)
-    //   .setColor("#2e7d32")
-    //   .addField(`DÉVELOPPEUR:`, `${statGame[appID].data.developers}`, true)
-    //   .addField(`PRIX:`, `${prix}`, true)
-    //   .addField(`DATE DE SORTIE:`, `${statGame[appID].data.release_date.date}`, true)
-    //   .addField(`METACRITIQUE:`, `${meracritique}`, true)
-    //   .addField(`Page de ${statGame[appID].data.name}`, `${text} [see more](${statGame[appID].data.website})`)
-    //   .setImage(splashURL);
-
-    // return message.channel.send(gameEmbed);
   }
 }
 module.exports = SteamPlayerCommand;
