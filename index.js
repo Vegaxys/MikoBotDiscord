@@ -1,20 +1,24 @@
+//**********************    Constantes    ****************************
 require('dotenv').config({path: 'C:./Clefs/.env'}); //H:/OneDrive - e-artsup/MikoBotDiscord/Clefs/.env
 const Commando = require('discord.js-commando');
 const express = require('express');
 const app = express();
+global.talkedRecently = new Set();
 global.configbot = require('./botconfig.json');
 global.gameList = require('./gameList.json');
+//**********************       Code       ****************************
 global.botconfig = {
-    commandPrefix: process.env.commandPrefix1,   //WARNING
+    commandPrefix: process.env.commandPrefix,   //WARNING
     catAPI: process.env.catAPI,
     dogAPI: process.env.dogAPI,
     weatherAPI: process.env.weatherAPI,
-    token: process.env.token1,                   //WARNING
+    token: process.env.token,                   //WARNING
     osuAPI: process.env.osuAPI,
     riotAPI: process.env.riotAPI,
     steamAPI: process.env.steamAPI,
     resources: process.env.resources,
-    luscious: process.env.luscious
+    luscious: process.env.luscious,
+    pixivLogin: process.env.pixivLogin
   };
 global.bot = new Commando.Client({
 commandPrefix: botconfig.commandPrefix,
@@ -28,6 +32,7 @@ bot.registry
         ['moderation', 'Moderation'],
         ['steam', 'Steam'],
         ['nsfw', 'Not Safe For Work'],
+        ['pictures', 'Pictures'],
         ['osu', 'Osu'],
         ['weather', 'Weather']])
     .registerDefaultGroups()
@@ -35,12 +40,7 @@ bot.registry
 
 bot.on("ready", () => {
     console.log(`${bot.user.username} is online!`);
-    bot.user.setActivity("Portal 3", {type : 'PLAYING'});
-  });
-
-app.get("/", (request, response) => {
-    console.log(Date.now() + " Ping Received");
-    response.sendStatus(200);
+    bot.user.setActivity("donner des câlins", {type : 'PLAYING'});
   });
 app.listen(process.env.PORT);
 

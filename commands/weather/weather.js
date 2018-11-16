@@ -1,6 +1,7 @@
 //**********************    Constantes    ****************************
 const commando = require("discord.js-commando");
 const Discord = require('discord.js');
+const querystring = require('querystring');
 //**********************       class      ****************************
 class WeatherCommand extends commando.Command{
   constructor(client){
@@ -14,11 +15,30 @@ class WeatherCommand extends commando.Command{
 
   async run(message, args){
     //v!weather ville pays
-    var ville = args[0];
-    var pays = args[1];
 
-    var meteo = await loadWeather();
+    args = args.split(' ');
+    var arg01 = args[0];
+    args.splice(0, 1);
+    var arg02 = args.join(" ");
 
+    var ville = arg01;
+    var pays = arg02;
+
+    var query_params = {
+        'q':`${ville},${pays}`, // le nom de la ville
+        'units':'metric',
+        'APPID':botconfig.weatherAPI,
+        'lang':'fr'
+        }
+    // convert this obejc to query string
+    let queryString = querystring.stringify(query_params);
+
+    // construct the API Get request url
+    let _url = `http://api.openweathermap.org/data/2.5/weather?${queryString}`;
+    // make the request passing the url, and headers object which contains the API_KEY
+    var meteo = await (await fetch(_url)).json();
+    console.log(meteo);
+    
     var temerature = meteo.main.temp;
     if(meteo.weather.length === 2){
         var mainWeather = meteo.weather[0].main;
@@ -51,24 +71,7 @@ class WeatherCommand extends commando.Command{
     }
     
     async loadWeather(){
-        var query_params = {
-        'q':`${ville},${pays}`, // le nom de la ville
-        'units':'metric',
-        'APPID':botconfig.weatherAPI,
-        'lang':'fr'
-        }
-        // convert this obejc to query string
-        let queryString = querystring.stringify(query_params);
-
-        try {
-        // construct the API Get request url
-        let _url = `http://api.openweathermap.org/data/2.5/weather?${queryString}`;
-        // make the request passing the url, and headers object which contains the API_KEY
-        var response = await r2.get(_url).json
-        } catch (e) {
-            console.log(e)
-        }
-        return response;
+        
     }
 }
 module.exports = WeatherCommand;
