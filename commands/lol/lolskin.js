@@ -22,6 +22,41 @@ class LolSkinCommand extends commando.Command{
     var url = `http://ddragon.leagueoflegends.com/cdn/${configbot.ddragon}/data/fr_FR/champion/${champion}.json`;
     var perso = await (await fetch(url)).json();
 
+    var urlWikia = 'https://leagueoflegends.wikia.com/wiki/Module:SkinData/data';
+    var $ = await (await fetch(urlWikia));
+    var json = {};   
+    console.log($);
+    
+    $('.kw1').each(function(i,a) {
+        json.shipment = {};
+
+        $(a).find('.box').each(function(j,b) {
+            var boxid = $(b).data('boxid');
+            json.shipment[boxid] = {};
+
+            $(b).find('.candy').each(function(k,c) {
+                var $c = $(c),
+                    candyid = $c.data('candyid'),
+                    color = $c.data('color'),
+                    flavor = $c.data('flavor'),
+                    qty = $c.data('qty');
+                json.shipment[boxid][candyid] = {};
+                if (color) json.shipment[boxid][candyid].color = color;
+                if (flavor) json.shipment[boxid][candyid].flavor = flavor;
+                if (qty) json.shipment[boxid][candyid].qty = qty;
+            });
+      });
+    });
+
+
+
+
+
+
+
+
+
+
     perso = perso.data[`${champion}`];
     var skins = perso.skins;
     var row = Object.keys(skins).length;
