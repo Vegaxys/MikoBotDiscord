@@ -45,5 +45,10 @@ bot.on("ready", () => {
 app.listen(process.env.PORT);
 
 bot.on('error', console.error);
+bot.on("message", (message) => { 
+    if(message.content.startsWith("<:brrr:")){
+        message.channel.send(`Bonjour ${message.author.username}, bien dormi ?`);
+    }
+});
 
 bot.login(botconfig.token);
