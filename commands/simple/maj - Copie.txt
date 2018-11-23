@@ -1,0 +1,130 @@
+//**********************    Constantes    ****************************
+const commando = require("discord.js-commando");
+const Discord = require('discord.js');
+const request = require('request');
+const cheerio = require('cheerio');
+const fs = require('fs');
+//**********************       class      ****************************
+function TransformString(value) {
+  var srt = value.replace(/"/g,"");
+  return srt;
+}
+class _8BallCommand extends commando.Command{
+  constructor(client){
+    super(client,{
+      name: 'maj',
+      group: 'simple',
+      memberName: 'maj',
+      description: 'put the bot up to date'
+    });
+  }
+
+  async run(message, args){
+    //v!maj
+    if(!message.member.hasPermission("ADMINISTRATOR")){
+      return message.channel.send("désolé, mais seul l'admin peut faire çela");
+    }
+    message.channel.send("mise à jour lancé");
+    //***********************************************************************
+    //**********************       lolperso      ****************************
+    //***********************************************************************
+    var url_Champions = `http://ddragon.leagueoflegends.com/cdn/${configbot.ddragon}/data/en_US/champion.json`;
+    var list_ChampionsURL = await (await fetch(url_Champions)).json();
+    var list_Champions = [];
+    var championsAmount = Object.keys(list_ChampionsURL.data);
+    for(var i = 0; i < championsAmount.length; i++){
+      list_Champions.push(list_ChampionsURL.data[championsAmount[i]].name);
+    }
+    
+    //***********************************************************************
+    //**********************       lolskins      ****************************
+    //***********************************************************************
+
+    var skinData = {
+      championName : 
+      [
+        {
+        chanpionID: "",
+        skins: 
+          [
+            {
+              skinName: "",
+              id: "",
+              disponibilite: "",
+              prix: "",
+              date_de_sortie: "",
+              voice_actor: "",
+              splash_artist: "",
+              lore: "",
+              set: "",
+              chromas: "",
+              new_effects: ""
+            } 
+          ]
+        }
+      ]
+    }
+    request('https://leagueoflegends.wikia.com/wiki/Module:SkinData/data', function(error, response, html){
+      var $ = cheerio.load(html);
+      if(error)
+        console.log(error);
+      if(response)
+        console.log(response.statusCode);
+      //23500 éléments
+      //trouver tous les span qui ont une booleen, un nom ou un nombre
+      $('.st0, .nu0, .kw4').each(function(i, elem) {
+        //tester si c'est un nom
+        if($(this).hasClass('st0')){
+          var srt2 = TransformString($(this).text());
+          for(var i = 0; i < list_Champions.length; i++){
+            //tester si c'est un nom de perso
+            if(srt2 == list_Champions[i]){
+              var ChampionName = srt2;
+              var ChampionID = $(this).nextUntil('.').text();
+              
+              
+
+
+
+
+
+
+
+
+              skins[srt2] = {
+                chanpionID: "",
+                skins: 
+                [
+                  {
+                    skinName: "",
+                    id: "",
+                    disponibilite: "",
+                    prix: "",
+                    date_de_sortie: "",
+                    voice_actor: "",
+                    splash_artist: "",
+                    lore: "",
+                    set: "",
+                    chromas: "",
+                    new_effects: ""
+                  } 
+                ]
+              };
+            break;
+            }
+          }
+        }
+      });
+      // for(var i = 0; i < list_Champions.length; i++){
+
+      // }
+      fs.writeFile("./skins.json", JSON.stringify(skins), (err) => {
+        if(err){
+          console.log(err);
+        }
+      });
+      return message.channel.send("mise à jour réussi !");
+    });
+  }
+}
+module.exports = _8BallCommand;

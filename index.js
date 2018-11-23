@@ -6,6 +6,7 @@ const app = express();
 global.talkedRecently = new Set();
 global.configbot = require('./botconfig.json');
 global.gameList = require('./gameList.json');
+global.champions = require('./champions.json');
 //**********************       Code       ****************************
 global.botconfig = {
     commandPrefix: process.env.commandPrefix,   //WARNING
@@ -18,7 +19,6 @@ global.botconfig = {
     steamAPI: process.env.steamAPI,
     resources: process.env.resources,
     luscious: process.env.luscious,
-    pixivLogin: process.env.pixivLogin
   };
 global.bot = new Commando.Client({
 commandPrefix: botconfig.commandPrefix,

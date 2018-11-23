@@ -30,6 +30,7 @@ class SteamGameCommand extends commando.Command{
       if(gameList.applist.apps[i].name.toLowerCase() === args.toLowerCase()){
         name = gameList.applist.apps[i].name;
         appID = gameList.applist.apps[i].appid;
+        console.log(appID);
         break;
       }
       if(gameList.applist.apps[i].name.toLowerCase().includes(args.toLowerCase()) && games.length < 20){
@@ -56,6 +57,8 @@ class SteamGameCommand extends commando.Command{
     var prix = '0';
     if(statGame[appID].data.is_free === true){
       prix = 'free';
+    }else if (statGame[appID].data.release_date.coming_soon === true){
+      prix = `coming soon`;
     }else{
       prix = `${statGame[appID].data.price_overview.final / 100} €`;
     }

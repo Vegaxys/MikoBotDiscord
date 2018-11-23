@@ -1,8 +1,7 @@
 //**********************    Constantes    ****************************
 const commando = require("discord.js-commando");
 const Discord = require('discord.js');
-const request = require('request');
-const cheerio = require('cheerio');
+var skins = require('../../skins.json');
 //**********************       class      ****************************
 class LolSkinCommand extends commando.Command{
   constructor(client){
@@ -19,47 +18,34 @@ class LolSkinCommand extends commando.Command{
 
     var champion = encodeURIComponent(args);
 
-    var url = `http://ddragon.leagueoflegends.com/cdn/${configbot.ddragon}/data/fr_FR/champion/${champion}.json`;
+    var url = `http://ddragon.leagueoflegends.com/cdn/${configbot.ddragon}/data/en_US/champion/${champion}.json`;
     var perso = await (await fetch(url)).json();
 
-    request('https://leagueoflegends.wikia.com/wiki/Module:SkinData/data', (error, response, html) => {
-      if(!error && response.statusCode == 200){
-
-        var skinData = {
-          id: "",
-          disponibilité: "",
-          prix: "",
-          date_de_sortie: "",
-          voice_actor: "",
-          splash_artist: "",
-          lore: "",
-          set: "",
-          chromas: "",
-          new_effects: ""
-        }
-        
-        var $ = cheerio.load(html);
-        var debut = $('.kw1').innerText;
-        console.log(debut);
-      }
-    });
-
     perso = perso.data[`${champion}`];
-    var skins = perso.skins;
-    var row = Object.keys(skins).length;
+    var championSkins = perso.skins;
+    var row = Object.keys(championSkins).length;
 
-    var i;
     var arrayOfSkins = "";
     var arrayOfPRrix = "";
-    var skin = bot.emojis.find(emoji => emoji.name === "SKIN");
+    var skinEmote = bot.emojis.find(emoji => emoji.name === "SKIN");
 
-    for (i = 1; i < row; i++) {
-        arrayOfSkins += `${skin} `+ perso.skins[i].name + '\n';
+
+    var currentSkins = skins[`${champion}`].skins;
+    console.log(Object.keys(currentSkins)[1].id);
+
+    // for (var i = 1; i < row; i++) {
+    //   for (var x = 1; x < row; x++) {
+    //     if(Object.keys(currentSkins)[x] == perso.skins[i].name){
+
+    //     }
+    //   }
+    //   arrayOfPRrix += skins[`${champion}`][`${perso.skins[i].name}`].cost + '\n';
+    // }
+
+
+    for (var i = 1; i < row; i++) {
+        arrayOfSkins += `${skinEmote} `+ perso.skins[i].name + '\n';
       }
-    i = 0;
-    for (i = 1; i < row; i++) {
-      arrayOfPRrix += perso.skins[i].name + '\n';
-    }
 
     var nudePicture = new Discord.RichEmbed()
     .setAuthor(`Miko | 巫女`, bot.user.avatarURL)
