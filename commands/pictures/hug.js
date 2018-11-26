@@ -40,7 +40,7 @@ class HugCommand extends commando.Command{
         }else{
           sentence = args;
         }
-
+        
         let hugEmbed = new Discord.RichEmbed()
             .setColor("#2e7d32")
             .addField(":love_letter:  A hug for you :love_letter: ", sentence)

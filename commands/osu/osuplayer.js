@@ -22,6 +22,17 @@ class OsuPlayerCommand extends commando.Command{
     var arg02 = args.join(" ");
 
     let mode = arg01;
+
+    if(arg02 == 'normal' || arg02 == 'taiko' || arg02 == 'ctb' || arg02 == 'mania'){
+        var pseudo = arg01;
+        mode = arg02;
+        arg02 = pseudo;
+    }
+
+    if(mode != 'normal' && mode != 'taiko' && mode != 'ctb' && mode != 'mania'){
+        return message.channel.send("Tu n'a pas mis le mode de jeu.");
+    }
+
     let colors = ["red", "orange", "yellow", "green", "blue", "purple",
     "pink", "black"]
     let randomColor = Math.floor(Math.random() * colors.length);
@@ -69,10 +80,10 @@ class OsuPlayerCommand extends commando.Command{
         .setThumbnail(`${botconfig.resources}/osu/osu.png`)
         .setColor("#2e7d32")
         .addField(`Profil de  ${arg02}`, `
-            Ici depuis ${player[0].join_date}
-            Score total : ${player[0].total_score.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1, ')}
-            Score Ranked : ${player[0].ranked_score.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1, ')}
-            [see more](${playerPage}) `)
+            **Ici depuis** ${player[0].join_date}
+            **Score total** : ${player[0].total_score.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1, ')}
+            **Score Ranked** : ${player[0].ranked_score.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1, ')}
+            [voir son profil](${playerPage}) `)
         .setImage(`https://lemmmy.pw/osusig/sig.php?${queryString}`)
         .setFooter("Powered by lemmmy.pw");
 

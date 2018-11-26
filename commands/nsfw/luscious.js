@@ -27,13 +27,10 @@ class LusciousCommand extends commando.Command{
   nudes = await (await fetch(nudeURL)).json();
 
   var imageID = nudes.data.picture.list.items.length;
-  var randomImage = 1 + Math.floor(Math.random() * imageID - 1);
-  console.log(randomPages + " sur " + pages + " | | " + randomImage + " sur " + imageID);
-  
+  var randomImage = 1 + Math.floor(Math.random() * imageID - 1);  
 
   var image = nudes.data.picture.list.items[randomImage].url_to_original;
   var title = nudes.data.picture.list.items[randomImage].title;
-  var tagsLength = nudes.data.picture.list.items[randomImage].tags.length;
   if(title == ''){
     title = 'No title';
   }

@@ -3,6 +3,18 @@ const commando = require("discord.js-commando");
 const Discord = require('discord.js');
 var skins = require('../../skins.json');
 //**********************       class      ****************************
+function getType(value) {
+  if(value === 3250 || value === 2775)
+    return bot.emojis.find(emoji => emoji.name === "ULTIME") + 'Ultime';
+  if(value === 10)
+    return bot.emojis.find(emoji => emoji.name === "HEXTECH") + 'Hextech';
+  if(value === 1820)
+    return bot.emojis.find(emoji => emoji.name === "LEGENDARY") + 'Legendary';
+  if(value === 1350)
+    return bot.emojis.find(emoji => emoji.name === "EPIC") + 'Epic';
+
+  return bot.emojis.find(emoji => emoji.name === "NORMAL") + 'Normal';
+}
 class LolSkinCommand extends commando.Command{
   constructor(client){
     super(client,{
@@ -26,25 +38,23 @@ class LolSkinCommand extends commando.Command{
     var row = Object.keys(championSkins).length;
 
     var arrayOfSkins = "";
-    var arrayOfPRrix = "";
-    var skinEmote = bot.emojis.find(emoji => emoji.name === "SKIN");
+    var arrayOfPrix = "";
+    var arrayOfType = "";
 
+    var skinEmote = bot.emojis.find(emoji => emoji.name === "SKIN");
+    var rpEmote = bot.emojis.find(emoji => emoji.name === "RP");
+    var hexEmote = bot.emojis.find(emoji => emoji.name === "GEM");
 
     var currentSkins = skins[`${champion}`].skins;
-    console.log(Object.keys(currentSkins)[1].id);
-
-    // for (var i = 1; i < row; i++) {
-    //   for (var x = 1; x < row; x++) {
-    //     if(Object.keys(currentSkins)[x] == perso.skins[i].name){
-
-    //     }
-    //   }
-    //   arrayOfPRrix += skins[`${champion}`][`${perso.skins[i].name}`].cost + '\n';
-    // }
-
 
     for (var i = 1; i < row; i++) {
-        arrayOfSkins += `${skinEmote} `+ perso.skins[i].name + '\n';
+        arrayOfSkins += `${i} |${skinEmote} `+ perso.skins[i].name + '\n';
+        if(currentSkins[`${Object.keys(currentSkins)[i]}`].cost == 10){
+          arrayOfPrix += `${hexEmote} `+ currentSkins[`${Object.keys(currentSkins)[i]}`].cost + '\n';
+        }else{
+          arrayOfPrix += `${rpEmote} `+ currentSkins[`${Object.keys(currentSkins)[i]}`].cost + '\n';
+        }
+        arrayOfType += `${getType(currentSkins[`${Object.keys(currentSkins)[i]}`].cost)}` + '\n';
       }
 
     var nudePicture = new Discord.RichEmbed()
@@ -52,7 +62,8 @@ class LolSkinCommand extends commando.Command{
     .setColor("#2e7d32")
     .setTitle(`Liste des skins de ${perso.name}, ${perso.title}`)
     .addField(`Skins`, `${arrayOfSkins}`, true)
-    .addField(`Prix`, `${arrayOfPRrix}`, true)
+    .addField(`Prix`, `${arrayOfPrix}`, true)
+    .addField(`Type`, `${arrayOfType}`, true)
     message.channel.send(nudePicture);
   }
 }

@@ -32,7 +32,7 @@ class RollCommand extends commando.Command{
   
     let levelEmbed = new Discord.RichEmbed()
       .setAuthor(`Miko | 巫女`, bot.user.avatarURL)
-      .setTitle(":arrows_counterclockwise: Lancé de dé :arrows_counterclockwise: ")
+      .setTitle(":game_dice: Lancé de dé :game_dice: ")
       .setColor("#2e7d32")
       .addField("Résultat", randomNumber)
       .setFooter(`Nombre généré entre ${min} et ${max}`)
