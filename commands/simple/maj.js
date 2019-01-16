@@ -9,7 +9,7 @@ function TransformString(value) {
   var srt = value.replace(/[\])}[{(]/g, ''); 
   return srt;
 }
-class _8BallCommand extends commando.Command{
+class MajCommand extends commando.Command{
   constructor(client){
     super(client,{
       name: 'maj',
@@ -107,10 +107,19 @@ class _8BallCommand extends commando.Command{
     });
 
     //***********************************************************************
-    //**********************       lolskins      ****************************
+    //**********************         steam       ****************************
     //***********************************************************************
+
+    var listURL = 'http://api.steampowered.com/ISteamApps/GetAppList/v2';
+
+    gameList = await (await fetch(listURL)).json();
+    fs.writeFile("../../gameList.json", JSON.stringify(gameList), (err) => {
+      if(err){
+        console.log(err);
+      }
+    });
 
     return message.channel.send("mise à jour réussi !");
   }
 }
-module.exports = _8BallCommand;
+module.exports = MajCommand;
