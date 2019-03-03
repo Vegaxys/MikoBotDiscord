@@ -22,6 +22,9 @@ class OsuPlayerCommand extends commando.Command{
     var arg02 = args.join(" ");
 
     let mode = arg01;
+    if(arg02 == ""){
+        arg02 = "normal";
+      }
 
     if(arg02 == 'normal' || arg02 == 'taiko' || arg02 == 'ctb' || arg02 == 'mania'){
         var pseudo = arg01;

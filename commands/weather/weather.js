@@ -21,8 +21,13 @@ class WeatherCommand extends commando.Command{
     args.splice(0, 1);
     var arg02 = args.join(" ");
 
+    console.log(arg01 + ","+ arg02);
     var ville = arg01;
+    if(arg02 == ""){
+      arg02 = "Paris";
+    }
     var pays = arg02;
+
 
     var query_params = {
         'q':`${ville},${pays}`, // le nom de la ville
